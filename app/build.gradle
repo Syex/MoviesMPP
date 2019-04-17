@@ -19,18 +19,31 @@ android {
         versionName '1.0'
         testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
     }
+    
     buildTypes {
         release {
             minifyEnabled false
         }
     }
+    
     packagingOptions {
         // Ktor prevents the build otherwise
         exclude 'META-INF/*.kotlin_module'
     }
+    
     compileOptions {
         targetCompatibility = "8"
         sourceCompatibility = "8"
+    }
+    
+    sourceSets {
+        main {
+            // per default MPP names the Android module "main" - not sure how to change this, so we need to tell
+            // Gradle where to find the Android code
+            manifest.srcFile 'src/androidMain/AndroidManifest.xml'
+            java.srcDirs = ['src/androidMain/java']
+            res.srcDirs = ['src/androidMain/res']
+        }
     }
 }
 
