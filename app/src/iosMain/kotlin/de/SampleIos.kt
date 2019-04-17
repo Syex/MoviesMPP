@@ -1,4 +1,4 @@
-package sample
+package de
 
 actual class Sample {
     actual fun checkMe() = 7
