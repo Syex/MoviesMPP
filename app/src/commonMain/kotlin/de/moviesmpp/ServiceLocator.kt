@@ -1,6 +1,8 @@
 package de.moviesmpp
 
 import de.moviesmpp.data.MoviesApi
+import de.moviesmpp.domain.usecase.GetPopularMovies
+import de.moviesmpp.presentation.popularmovies.PopularMoviesPresenter
 import io.ktor.client.engine.HttpClientEngine
 
 /**
@@ -9,6 +11,12 @@ import io.ktor.client.engine.HttpClientEngine
 object ServiceLocator {
 
     val moviesApi by lazy { MoviesApi(PlatformServiceLocator.httpClientEngine) }
+
+    val getPopularMovies: GetPopularMovies
+        get() = GetPopularMovies(moviesApi)
+
+    val popularMoviesPresenter: PopularMoviesPresenter
+        get() = PopularMoviesPresenter(getPopularMovies)
 }
 
 /**

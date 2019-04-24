@@ -14,7 +14,8 @@ buildscript {
     ext.versions = [
             "ktor" : "1.1.4",
             "serialization" : "0.11.0",
-            "coroutines" : "1.2.0"
+            "coroutines" : "1.2.0",
+            "klock" : "1.4.0"
     ]
 }
 repositories {

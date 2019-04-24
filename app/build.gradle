@@ -9,6 +9,10 @@ repositories {
     google()
     jcenter()
     mavenCentral()
+    // For Klock (https://github.com/korlibs/klock)
+    repositories {
+        maven { url "https://dl.bintray.com/soywiz/soywiz" }
+    }
 }
 
 android {
@@ -74,6 +78,9 @@ kotlin {
 
                 // Coroutines
                 implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core-common:${versions.coroutines}"
+
+                // Date & Time
+                implementation "com.soywiz:klock-metadata:${versions.klock}"
             }
         }
         commonTest {
@@ -99,6 +106,9 @@ kotlin {
 
                 // Coroutines
                 implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:${versions.coroutines}"
+                
+                // Date & Time
+                implementation "com.soywiz:klock-android:${versions.klock}"
             }
         }
         androidTest {
