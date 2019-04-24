@@ -66,14 +66,14 @@ kotlin {
         commonMain {
             dependencies {
                 implementation kotlin('stdlib-common')
-                implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime-common:0.11.0"
+                implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime-common:${versions.serialization}"
 
                 // HTTP
                 implementation "io.ktor:ktor-client-core:${versions.ktor}"
                 implementation "io.ktor:ktor-client-json:${versions.ktor}"
 
                 // Coroutines
-                implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core-common:1.2.0"
+                implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core-common:${versions.coroutines}"
             }
         }
         commonTest {
@@ -85,7 +85,7 @@ kotlin {
         androidMain {
             dependencies {
                 implementation kotlin('stdlib')
-                implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime:0.11.0"
+                implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime:${versions.serialization}"
 
                 // Android Support Libs
                 implementation 'com.android.support:appcompat-v7:28.0.0'
@@ -98,7 +98,7 @@ kotlin {
                 implementation "com.squareup.okhttp3:logging-interceptor:3.14.1"
 
                 // Coroutines
-                implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.2.0'
+                implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:${versions.coroutines}"
             }
         }
         androidTest {
@@ -106,7 +106,7 @@ kotlin {
                 implementation kotlin('test')
                 implementation kotlin('test-junit')
                 implementation 'com.android.support.test:runner:1.0.2'
-                implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime:0.11.0"
+                implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime:${versions.serialization}"
             }
         }
 
