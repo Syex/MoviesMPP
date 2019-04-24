@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
         GlobalScope.launch {
             try {
                 val popularMovies = api.getPopularMovies()
-                Log.i("TEST", popularMovies)
+                Log.i("TEST", popularMovies.toString())
             } catch (e: Exception) {
                 Log.e("TEST", e.message)
             }

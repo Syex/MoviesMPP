@@ -34,5 +34,6 @@ class MovieEntityTest {
         val movie = Json.parse(MovieEntity.serializer(), json)
 
         assertEquals("Avengers: Endgame", movie.title)
+        assertEquals(299534, movie.id)
     }
 }

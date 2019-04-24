@@ -1,13 +1,15 @@
 plugins {
-    id 'kotlin-multiplatform' version '1.3.30'
+    id 'kotlin-multiplatform'
+    id 'kotlinx-serialization'
 }
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android-extensions'
+
 repositories {
     google()
     jcenter()
     mavenCentral()
 }
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion 28
@@ -64,9 +66,11 @@ kotlin {
         commonMain {
             dependencies {
                 implementation kotlin('stdlib-common')
+                implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime-common:0.11.0"
 
                 // HTTP
-                implementation "io.ktor:ktor-client-core:1.1.4"
+                implementation "io.ktor:ktor-client-core:${versions.ktor}"
+                implementation "io.ktor:ktor-client-json:${versions.ktor}"
 
                 // Coroutines
                 implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core-common:1.2.0"
@@ -81,10 +85,16 @@ kotlin {
         androidMain {
             dependencies {
                 implementation kotlin('stdlib')
+                implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime:0.11.0"
+
+                // Android Support Libs
+                implementation 'com.android.support:appcompat-v7:28.0.0'
+                implementation 'com.android.support.constraint:constraint-layout:1.1.3'
 
                 // HTTP
-                implementation "io.ktor:ktor-client-android:1.1.4"
-                implementation "io.ktor:ktor-client-okhttp:1.1.4"
+                implementation "io.ktor:ktor-client-android:${versions.ktor}"
+                implementation "io.ktor:ktor-client-json-jvm:${versions.ktor}"
+                implementation "io.ktor:ktor-client-okhttp:${versions.ktor}"
                 implementation "com.squareup.okhttp3:logging-interceptor:3.14.1"
 
                 // Coroutines
@@ -95,14 +105,18 @@ kotlin {
             dependencies {
                 implementation kotlin('test')
                 implementation kotlin('test-junit')
+                implementation 'com.android.support.test:runner:1.0.2'
+                implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime:0.11.0"
             }
         }
+
 //        iosMain {
 //        }
 //        iosTest {
 //        }
     }
 }
+
 
 // This task attaches native framework built from ios module to Xcode project
 // (see iosApp directory). Don't run this task directly,
