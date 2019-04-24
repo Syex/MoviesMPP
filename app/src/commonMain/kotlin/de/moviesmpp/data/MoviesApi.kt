@@ -4,6 +4,7 @@ import io.ktor.client.HttpClient
 import io.ktor.client.engine.HttpClientEngine
 import io.ktor.client.request.get
 import io.ktor.client.request.header
+import io.ktor.client.request.parameter
 import io.ktor.http.URLProtocol
 
 private const val BASE_URL = "api.themoviedb.org/4"
@@ -18,7 +19,8 @@ class MoviesApi(clientEngine: HttpClientEngine) {
             url {
                 protocol = URLProtocol.HTTPS
                 host = BASE_URL
-                encodedPath = "/discover/movie?sort_by=popularity.desc"
+                encodedPath = "/discover/movie"
+                parameter("sort_by", "popularity.desc")
                 header(HEADER_AUTHORIZATION, API_KEY.asBearerToken())
             }
         }
