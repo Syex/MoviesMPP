@@ -10,7 +10,8 @@ class GetPopularMovies(private val moviesApi: MoviesApi) : UseCase<PopularMovies
 
     override suspend fun run(params: None): Either<Exception, PopularMovies> {
         return try {
-            Success(moviesApi.getPopularMovies().toModel())
+            val movies = moviesApi.getPopularMovies().toModel()
+            Success(movies)
         } catch (e: Exception) {
             Failure(e)
         }

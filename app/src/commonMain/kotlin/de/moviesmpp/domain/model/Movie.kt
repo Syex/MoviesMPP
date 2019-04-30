@@ -5,6 +5,8 @@ import com.soywiz.klock.DateTime
 import com.soywiz.klock.parse
 import de.moviesmpp.data.entity.MovieEntity
 
+private const val MOVIE_POSTER_BASE_URL = "https://image.tmdb.org/t/p/original"
+
 private val releaseDateFormat = DateFormat("yyyy-MM-dd")
 
 data class Movie(
@@ -22,7 +24,10 @@ data class Movie(
     val adult: Boolean,
     val overview: String,
     val posterPath: String
-)
+) {
+
+    val completePosterPath = MOVIE_POSTER_BASE_URL + posterPath
+}
 
 fun MovieEntity.toModel() = Movie(
     popularity = popularity,

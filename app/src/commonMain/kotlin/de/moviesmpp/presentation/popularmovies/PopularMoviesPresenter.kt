@@ -14,6 +14,7 @@ class PopularMoviesPresenter(
 ) : BasePresenter<PopularMoviesView>(coroutineContext) {
 
     override fun onViewAttached(view: PopularMoviesView) {
+        view.setLoadingVisible(true)
         getPopularMovies()
     }
 
@@ -24,6 +25,7 @@ class PopularMoviesPresenter(
                 onSuccess = { view?.setPopularMovies(it.results) },
                 onFailure = { view?.showMoviesFailedToLoad() }
             )
+            view?.setLoadingVisible(false)
         }
     }
 }
@@ -33,4 +35,6 @@ interface PopularMoviesView {
     fun setPopularMovies(movies: List<Movie>)
 
     fun showMoviesFailedToLoad()
+
+    fun setLoadingVisible(visible: Boolean)
 }
