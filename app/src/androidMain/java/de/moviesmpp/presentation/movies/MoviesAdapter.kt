@@ -1,4 +1,4 @@
-package de.moviesmpp
+package de.moviesmpp.presentation.movies
 
 import android.view.LayoutInflater
 import android.view.View
@@ -19,7 +19,13 @@ class MoviesAdapter : RecyclerView.Adapter<MoviesAdapter.MovieViewHolder>() {
         }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
-        return MovieViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.view_movie, parent, false))
+        return MovieViewHolder(
+            LayoutInflater.from(parent.context).inflate(
+                R.layout.view_movie,
+                parent,
+                false
+            )
+        )
     }
 
     override fun getItemCount(): Int = movies.size

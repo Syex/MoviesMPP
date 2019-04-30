@@ -1,4 +1,4 @@
-package de
+package de.moviesmpp.presentation.movies
 
 import android.os.Bundle
 import android.util.Log
@@ -6,7 +6,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
-import de.moviesmpp.MoviesAdapter
+import de.R
 import de.moviesmpp.ServiceLocator
 import de.moviesmpp.domain.model.Movie
 import de.moviesmpp.presentation.popularmovies.PopularMoviesView
