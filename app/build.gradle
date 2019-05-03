@@ -60,8 +60,6 @@ dependencies {
     implementation "androidx.cardview:cardview:1.0.0"
 
     implementation "com.github.bumptech.glide:glide:4.9.0"
-    
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
 }
 
 kotlin {
@@ -92,6 +90,7 @@ kotlin {
             dependencies {
         		implementation kotlin('test-common')
         		implementation kotlin('test-annotations-common')
+                implementation "io.mockk:mockk:1.9.3"
             }
         }
         androidMain {
@@ -117,7 +116,12 @@ kotlin {
                 implementation kotlin('test')
                 implementation kotlin('test-junit')
                 implementation 'com.android.support.test:runner:1.0.2'
+
+                // actually not needed, see https://youtrack.jetbrains.com/issue/KT-31189
                 implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime:${versions.serialization}"
+                implementation "com.soywiz:klock-android:${versions.klock}"
+
+                implementation "io.mockk:mockk:1.9.3"
             }
         }
 
