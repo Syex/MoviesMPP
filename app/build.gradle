@@ -66,9 +66,9 @@ kotlin {
     android("android")
     // This is for iPhone emulator
     // Switch here to iosArm64 (or iosArm32) to build library for iPhone device
-//    iosX64("ios") {
-//        compilations.main.outputKinds("framework")
-//    }
+    iosX64("ios") {
+        compilations.main.outputKinds("framework")
+    }
     sourceSets {
         commonMain {
             dependencies {
@@ -125,10 +125,23 @@ kotlin {
             }
         }
 
-//        iosMain {
-//        }
-//        iosTest {
-//        }
+        iosMain {
+            dependencies {
+                implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime-native:${versions.serialization}"
+
+                // HTTP
+                implementation "io.ktor:ktor-client-ios:${versions.ktor}"
+                implementation "io.ktor:ktor-client-json-native:${versions.ktor}"
+
+                // Coroutines
+                implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core-native:${versions.coroutines}"
+
+                // Date & Time
+                implementation "com.soywiz:klock-iosx64:${versions.klock}"
+            }
+        }
+        iosTest {
+        }
     }
 }
 
@@ -138,19 +151,19 @@ kotlin {
 // Xcode runs this task itself during its build process.
 // Before opening the project from iosApp directory in Xcode,
 // make sure all Gradle infrastructure exists (gradle.wrapper, gradlew).
-//task copyFramework {
-//    def buildType = project.findProperty('kotlin.build.type') ?: 'DEBUG'
-//    def target = project.findProperty('kotlin.target') ?: 'ios'
-//    dependsOn kotlin.targets."$target".compilations.main.linkTaskName('FRAMEWORK', buildType)
-//
-//    doLast {
-//        def srcFile = kotlin.targets."$target".compilations.main.getBinary('FRAMEWORK', buildType)
-//        def targetDir = getProperty('configuration.build.dir')
-//        copy {
-//            from srcFile.parent
-//            into targetDir
-//            include 'app.framework/**'
-//            include 'app.framework.dSYM'
-//        }
-//    }
-//}
+task copyFramework {
+    def buildType = project.findProperty('kotlin.build.type') ?: 'DEBUG'
+    def target = project.findProperty('kotlin.target') ?: 'ios'
+    dependsOn kotlin.targets."$target".compilations.main.linkTaskName('FRAMEWORK', buildType)
+
+    doLast {
+        def srcFile = kotlin.targets."$target".compilations.main.getBinary('FRAMEWORK', buildType)
+        def targetDir = getProperty('configuration.build.dir')
+        copy {
+            from srcFile.parent
+            into targetDir
+            include 'app.framework/**'
+            include 'app.framework.dSYM'
+        }
+    }
+}
