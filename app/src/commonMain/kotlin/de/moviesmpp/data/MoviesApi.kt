@@ -8,11 +8,15 @@ import io.ktor.client.features.json.serializer.KotlinxSerializer
 import io.ktor.client.request.get
 import io.ktor.client.request.header
 import io.ktor.client.request.parameter
+import io.ktor.client.response.HttpResponse
+import io.ktor.client.response.readText
 import io.ktor.http.URLProtocol
+import kotlinx.serialization.json.Json
 
 private const val BASE_URL = "api.themoviedb.org/4"
 private const val HEADER_AUTHORIZATION = "Authorization"
 
+@Suppress("EXPERIMENTAL_API_USAGE")
 class MoviesApi(clientEngine: HttpClientEngine) {
 
     private val client = HttpClient(clientEngine) {
@@ -22,7 +26,10 @@ class MoviesApi(clientEngine: HttpClientEngine) {
     }
 
     suspend fun getPopularMovies(): PopularMoviesEntity {
-        return client.get {
+        // Actually we're able to just return the get()-call and Ktor's JsonFeature will automatically do the
+        // JSON parsing for us. However, this currently doesn't work with Kotlin/Native as it doesn't support reflection
+        // and we have to manually use PopularMoviesEntity.serializer()
+        val response = client.get<HttpResponse> {
             url {
                 protocol = URLProtocol.HTTPS
                 host = BASE_URL
@@ -31,6 +38,9 @@ class MoviesApi(clientEngine: HttpClientEngine) {
                 header(HEADER_AUTHORIZATION, API_KEY.asBearerToken())
             }
         }
+
+        val jsonBody = response.readText()
+        return Json.parse(PopularMoviesEntity.serializer(), jsonBody)
     }
 }
 

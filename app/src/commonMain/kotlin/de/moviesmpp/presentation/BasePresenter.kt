@@ -1,6 +1,5 @@
 package de.moviesmpp.presentation
 
-import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlin.coroutines.CoroutineContext
@@ -38,5 +37,3 @@ class PresenterCoroutineScope(
         onViewDetachJob.cancel()
     }
 }
-
-expect val uiDispatcher: CoroutineDispatcher

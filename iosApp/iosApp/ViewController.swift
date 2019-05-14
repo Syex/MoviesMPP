@@ -1,14 +1,27 @@
 import UIKit
-import app
+import main
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, PopularMoviesView {
+    
+    @IBOutlet weak var label: UILabel!
+    
+    private lazy var presenter = ServiceLocator.init().popularMoviesPresenter
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        label.text = Proxy().proxyHello()
+        presenter.attachView(view: self)
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
+    func setPopularMovies(movies: [Movie]) {
+        print(movies)
     }
-    @IBOutlet weak var label: UILabel!
+    
+    func showMoviesFailedToLoad() {
+        print("Movies failed to load")
+    }
+    
+    func setLoadingVisible(visible: Bool) {
+        print("Setting loading visible \(visible)")
+    }
+    
 }

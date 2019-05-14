@@ -1,7 +1,7 @@
 package de.moviesmpp.domain.usecase
 
 import de.moviesmpp.domain.model.Either
-import de.moviesmpp.presentation.uiDispatcher
+import de.moviesmpp.domain.uiDispatcher
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 

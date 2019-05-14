@@ -78,6 +78,7 @@ kotlin {
                 // HTTP
                 implementation "io.ktor:ktor-client-core:${versions.ktor}"
                 implementation "io.ktor:ktor-client-json:${versions.ktor}"
+                implementation "io.ktor:ktor-client-serialization:${versions.ktor}"
 
                 // Coroutines
                 implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core-common:${versions.coroutines}"
@@ -101,6 +102,7 @@ kotlin {
                 // HTTP
                 implementation "io.ktor:ktor-client-android:${versions.ktor}"
                 implementation "io.ktor:ktor-client-json-jvm:${versions.ktor}"
+                implementation "io.ktor:ktor-client-serialization-jvm:${versions.ktor}"
                 implementation "io.ktor:ktor-client-okhttp:${versions.ktor}"
                 implementation "com.squareup.okhttp3:logging-interceptor:3.14.1"
 
@@ -132,6 +134,7 @@ kotlin {
                 // HTTP
                 implementation "io.ktor:ktor-client-ios:${versions.ktor}"
                 implementation "io.ktor:ktor-client-json-native:${versions.ktor}"
+                implementation "io.ktor:ktor-client-serialization-iosx64:${versions.ktor}"
 
                 // Coroutines
                 implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core-native:${versions.coroutines}"
@@ -156,14 +159,15 @@ task copyFramework {
     def target = project.findProperty('kotlin.target') ?: 'ios'
     dependsOn kotlin.targets."$target".compilations.main.linkTaskName('FRAMEWORK', buildType)
 
-    doLast {
-        def srcFile = kotlin.targets."$target".compilations.main.getBinary('FRAMEWORK', buildType)
-        def targetDir = getProperty('configuration.build.dir')
-        copy {
-            from srcFile.parent
-            into targetDir
-            include 'app.framework/**'
-            include 'app.framework.dSYM'
-        }
-    }
+    // doesn't work. Framework is linked from app/build/bin/ios/mainDebugFramework
+//    doLast {
+//        def srcFile = kotlin.targets."$target".compilations.main.getBinary('FRAMEWORK', buildType)
+//        def targetDir = ('configuration.build.dir')
+//         copy {
+//            from srcFile.parent
+//            into targetDir
+//            include 'app.framework/**'
+//            include 'app.framework.dSYM'
+//        }
+//    }
 }
