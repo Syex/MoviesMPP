@@ -25,23 +25,23 @@ android {
         versionName '1.0'
         testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
     }
-    
+
     buildTypes {
         release {
             minifyEnabled false
         }
     }
-    
+
     packagingOptions {
         // Ktor prevents the build otherwise
         exclude 'META-INF/*.kotlin_module'
     }
-    
+
     compileOptions {
         targetCompatibility = "8"
         sourceCompatibility = "8"
     }
-    
+
     sourceSets {
         main {
             // per default MPP names the Android module "main" - not sure how to change this, so we need to tell
@@ -89,8 +89,8 @@ kotlin {
         }
         commonTest {
             dependencies {
-        		implementation kotlin('test-common')
-        		implementation kotlin('test-annotations-common')
+                implementation kotlin('test-common')
+                implementation kotlin('test-annotations-common')
                 implementation "io.mockk:mockk:1.9.3"
             }
         }
@@ -108,7 +108,7 @@ kotlin {
 
                 // Coroutines
                 implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:${versions.coroutines}"
-                
+
                 // Date & Time
                 implementation "com.soywiz:klock-android:${versions.klock}"
             }
