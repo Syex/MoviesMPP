@@ -14,5 +14,4 @@ actual object PlatformServiceLocator {
             addNetworkInterceptor(networkInterceptor)
         }
     }
-
 }

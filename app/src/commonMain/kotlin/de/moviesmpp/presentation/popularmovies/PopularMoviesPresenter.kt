@@ -1,16 +1,16 @@
 package de.moviesmpp.presentation.popularmovies
 
+import de.moviesmpp.domain.defaultDispatcher
 import de.moviesmpp.domain.model.Movie
 import de.moviesmpp.domain.usecase.GetPopularMovies
 import de.moviesmpp.domain.usecase.UseCase
 import de.moviesmpp.presentation.BasePresenter
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
 class PopularMoviesPresenter(
     private val getPopularMovies: GetPopularMovies,
-    coroutineContext: CoroutineContext = Dispatchers.Default
+    coroutineContext: CoroutineContext = defaultDispatcher
 ) : BasePresenter<PopularMoviesView>(coroutineContext) {
 
     override fun onViewAttached(view: PopularMoviesView) {

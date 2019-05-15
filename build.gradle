@@ -12,7 +12,7 @@ buildscript {
     }
 
     ext.versions = [
-            "ktor" : "1.1.4",
+            "ktor" : "1.2.0-rc",
             "serialization" : "0.11.0",
             "coroutines" : "1.2.1",
             "klock" : "1.4.0"
