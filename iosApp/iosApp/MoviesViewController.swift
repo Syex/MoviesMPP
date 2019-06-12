@@ -15,11 +15,16 @@ class MoviesViewController: UICollectionViewController, PopularMoviesView {
                                              bottom: 0.0,
                                              right: 20.0)
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         presenter.attachView(view: self)
     }
-
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        presenter.detachView()
+    }
+    
     func setPopularMovies(movies: [Movie]) {
         self.movies = movies
         collectionView?.reloadData()
