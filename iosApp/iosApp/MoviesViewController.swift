@@ -43,7 +43,7 @@ class MoviesViewController: UICollectionViewController, PopularMoviesView {
 extension MoviesViewController {
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return movies.count
+        return movies.count / moviesPerRow
     }
     
     override func collectionView(_ collectionView: UICollectionView,
