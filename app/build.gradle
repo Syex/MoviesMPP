@@ -67,7 +67,11 @@ kotlin {
     // This is for iPhone emulator
     // Switch here to iosArm64 (or iosArm32) to build library for iPhone device
     iosX64("ios") {
-        compilations.main.outputKinds("framework")
+        binaries {
+            framework {
+                freeCompilerArgs.add("-Xobjc-generics")
+            }
+        }
     }
     sourceSets {
         commonMain {
@@ -155,19 +159,17 @@ kotlin {
 // Before opening the project from iosApp directory in Xcode,
 // make sure all Gradle infrastructure exists (gradle.wrapper, gradlew).
 task copyFramework {
-    def buildType = project.findProperty('kotlin.build.type') ?: 'DEBUG'
-    def target = project.findProperty('kotlin.target') ?: 'ios'
-    dependsOn kotlin.targets."$target".compilations.main.linkTaskName('FRAMEWORK', buildType)
+    def buildType = project.findProperty("kotlin.build.type") ?: "DEBUG"
+    dependsOn "link${buildType.toLowerCase().capitalize()}FrameworkIos"
 
-    // doesn't work. Framework is linked from app/build/bin/ios/mainDebugFramework
-//    doLast {
-//        def srcFile = kotlin.targets."$target".compilations.main.getBinary('FRAMEWORK', buildType)
-//        def targetDir = ('configuration.build.dir')
-//         copy {
-//            from srcFile.parent
-//            into targetDir
-//            include 'app.framework/**'
-//            include 'app.framework.dSYM'
-//        }
-//    }
+    doLast {
+        def srcFile = kotlin.targets.ios.binaries.getFramework(buildType).outputFile
+        def targetDir = getProperty("configuration.build.dir")
+        copy {
+            from srcFile.parent
+            into targetDir
+            include 'greeting.framework/**'
+            include 'greeting.framework.dSYM'
+        }
+    }
 }
